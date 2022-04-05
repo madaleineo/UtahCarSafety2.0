@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Dataset";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@model CrashViewModel
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <td>Crash ID</td>
+            <td>Time</td>
+            <td>Severity</td>
+            <td>Notes</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var c in Model.Crashes)
+        {
+            <tr>
+                <td>@c.CRASH_ID</td>
+                <td>@c.CRASH_DATETIME</td>
+                <td>@c.CRASH_SEVERITY_ID</td>
+                <td>@c.WhatBoolean()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<div page-blah="@Model.PageInfo" page-action="Index" page-class="btn" page-class-normal="btn-outline-dark"
+     page-class-selected="btn-primary" page-classes-enabled="true" class="btn-group pull-right m-1"></div>
