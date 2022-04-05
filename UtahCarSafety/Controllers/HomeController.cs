@@ -73,7 +73,8 @@ namespace UtahCarSafety.Controllers
             return View();
         }
 
-        public IActionResult Dataset(string CITY, int pageNum = 1)
+        //public IActionResult Dataset(string CITY, int pageNum = 1)
+        public IActionResult Dataset(string CITY)
         {
             int numResults = 75;
 
@@ -81,20 +82,20 @@ namespace UtahCarSafety.Controllers
             {
                 Crashes = repo.Crashes
                 .Include("City")
-                .Where(c => c.City.CITY == CITY || CITY == null)
+                .Where(c => c.CITY == CITY || CITY == null)
                 .OrderByDescending(c => c.CRASH_DATETIME)
-                .Skip((pageNum - 1) * numResults)
+                //.Skip((pageNum - 1) * numResults)
                 .Take(numResults),
 
-                PageInfo = new PageInfo
-                {
-                    TotalNumRecords =
-                        (CITY == null
-                            ? repo.Crashes.Count()
-                            : repo.Crashes.Where(x => x.City.CITY == CITY).Count()),
-                    RecordsPerPage = numResults,
-                    CurrentPage = pageNum,
-                }
+                //PageInfo = new PageInfo
+                //{
+                //    TotalNumRecords =
+                //        (CITY == null
+                //            ? repo.Crashes.Count()
+                //            : repo.Crashes.Where(x => x.City.CITY == CITY).Count()),
+                //    RecordsPerPage = numResults,
+                //    CurrentPage = pageNum,
+                //}
             };
 
             //ViewData["TeamName"] = teamName;

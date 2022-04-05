@@ -1,5 +1,228 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Edit Crash Record";
 }
+
+@model UtahCarSafety.Models.Crash
+
+<div>
+
+    <form method="post" asp-action="EditCrash">
+
+        <div asp-validation-summary="All"></div>
+
+        <input type="hidden" asp-for="CRASH_ID" />
+
+        <div asp-validation-summary="All"></div>
+
+        @*<input type="hidden" value="@Model.CRASH_ID" />*@
+
+        <div class="form-group">
+            <label asp-for="ROUTE">Route: </label>
+            <input type="text" asp-for="ROUTE" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="MILEPOINT">Milepoint: </label>
+            <input asp-for="MILEPOINT" type="number" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="LAT_UTM_Y">Latitude: </label>
+            <input asp-for="LAT_UTM_Y" type="number" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="LONG_UTM_X">Longitude: </label>
+            <input asp-for="LONG_UTM_X" type="number" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="City.CITY">City: </label>
+            <select asp-for="City.CITY" class="form-control">
+                <option value="">Select City</option>
+                @foreach (City city in ViewBag.Cities)
+                {
+                    <option value="@city.CITY">@city.CITY</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="COUNTY_NAME">County Name: </label>
+            <select asp-for="COUNTY_NAME" class="form-control">
+                <option value="">Select County</option>
+                <option value="Beaver">Beaver</option>
+                <option value="Box Elder">Box Elder</option>
+                <option value="Cache">Cache</option>
+                <option value="Carbon">Carbon</option>
+                <option value="Daggett">Daggett</option>
+                <option value="Davis">Davis</option>
+                <option value="Duchesne">Duchesne</option>
+                <option value="Emery">Emery</option>
+                <option value="Garfield">Garfield</option>
+                <option value="Grand">Grand</option>
+                <option value="Iron">Iron</option>
+                <option value="Juab">Juab</option>
+                <option value="Kane">Kane</option>
+                <option value="Millard">Millard</option>
+                <option value="Morgan">Morgan</option>
+                <option value="Piute">Piute</option>
+                <option value="Rich">Rich</option>
+                <option value="Salt Lake">Salt Lake</option>
+                <option value="San Juan">San Juan</option>
+                <option value="Sanpete">Sanpete</option>
+                <option value="Sevier">Sevier</option>
+                <option value="Summit">Summit</option>
+                <option value="Tooele">Tooele</option>
+                <option value="Uintah">Uintah</option>
+                <option value="Utah">Utah</option>
+                <option value="Wasatch">Wasatch</option>
+                <option value="Washington">Washington</option>
+                <option value="Wayne">Wayne</option>
+                <option value="Weber">Weber</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CRASH_SEVERITY_ID">Crash Severity: </label>
+            <select asp-for="CRASH_SEVERITY_ID" class="form-control">
+                <option value="">Select Severity</option>
+                <option value="1">No Injury</option>
+                <option value="2">Possible Injury</option>
+                <option value="3">Suspected Minor Injury</option>
+                <option value="4">Suspected Serious Injury</option>
+                <option value="5">Fatal</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CRASH_DATETIME">Crash Date/Time: </label>
+            <input asp-for="CRASH_DATETIME" type="datetime" class="form-control" />
+        </div>
+        <br />
+        <p>Please select all that apply:</p>
+        <br />
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <input asp-for="WORK_ZONE_RELATED" type="checkbox" />
+                    <label asp-for="WORK_ZONE_RELATED">Work Zone Related? </label>
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="PEDESTRIAN_INVOLVED" type="checkbox" />
+                    <label asp-for="PEDESTRIAN_INVOLVED">Pedestrian Involved? </label>
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="BICYCLIST_INVOLVED" type="checkbox" />
+                    <label asp-for="BICYCLIST_INVOLVED">Bicyclist Involved? </label>
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="MOTORCYCLE_INVOLVED" type="checkbox" />
+                    <label asp-for="MOTORCYCLE_INVOLVED">Motorcycle Involved? </label>
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="IMPROPER_RESTRAINT" type="checkbox" />
+                    <label asp-for="IMPROPER_RESTRAINT">Improper Restraint? </label>
+                </div>
+
+                <div class="form-group">
+
+                    <input asp-for="UNRESTRAINED" type="checkbox" />
+                    <label asp-for="UNRESTRAINED">Unrestrained? </label>
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="DUI" type="checkbox" />
+                    <label asp-for="DUI">DUI? </label>
+
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="INTERSECTION_RELATED" type="checkbox" />
+                    <label asp-for="INTERSECTION_RELATED">Intersection Related? </label>
+
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="WILD_ANIMAL_RELATED" type="checkbox" />
+                    <label asp-for="WILD_ANIMAL_RELATED">Wild Animal Related? </label>
+
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="DOMESTIC_ANIMAL_RELATED" type="checkbox" />
+                    <label asp-for="DOMESTIC_ANIMAL_RELATED">Work Zone Related? </label>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+
+
+                <div class="form-group">
+                    <input asp-for="OVERTURN_ROLLOVER" type="checkbox" />
+                    <label asp-for="OVERTURN_ROLLOVER">Overturn or Rollover? </label>
+
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="COMMERCIAL_MOTOR_VEH_INVOLVED" type="checkbox" />
+                    <label asp-for="COMMERCIAL_MOTOR_VEH_INVOLVED">Commercial Motor Vehicle Involved? </label>
+
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="TEENAGE_DRIVER_INVOLVED" type="checkbox" />
+                    <label asp-for="TEENAGE_DRIVER_INVOLVED">Teenage Driver Involved? </label>
+
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="OLDER_DRIVER_INVOLVED" type="checkbox" />
+                    <label asp-for="OLDER_DRIVER_INVOLVED">Older Driver Involved? </label>
+
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="NIGHT_DARK_CONDITION" type="checkbox" />
+                    <label asp-for="NIGHT_DARK_CONDITION">Night/Dark Condition? </label>
+
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="SINGLE_VEHICLE" type="checkbox" />
+                    <label asp-for="SINGLE_VEHICLE">Single Vehicle? </label>
+
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="DISTRACTED_DRIVING" type="checkbox" />
+                    <label asp-for="DISTRACTED_DRIVING">Distracted Driving? </label>
+
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="DROWSY_DRIVING" type="checkbox" />
+                    <label asp-for="DROWSY_DRIVING">Drowsy Driving? </label>
+
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="ROADWAY_DEPARTURE" type="checkbox" />
+                    <label asp-for="ROADWAY_DEPARTURE">Roadway Departure? </label>
+
+                </div>
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary" asp-route="Dataset">Edit</button>
+
+    </form>
+
+</div>
